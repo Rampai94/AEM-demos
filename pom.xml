@@ -14,7 +14,9 @@
  |  See the License for the specific language governing permissions and
  |  limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.namaste.aem</groupId>
     <artifactId>sample-aem</artifactId>
@@ -87,7 +89,8 @@
                                     <version>[3.3.9,)</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
-                                    <message>Project must be compiled with Java 8 or higher</message>
+                                    <message>Project must be compiled
+                                        with Java 8 or higher</message>
                                     <version>1.8.0</version>
                                 </requireJavaVersion>
                             </rules>
@@ -155,13 +158,16 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.20</version>
+                    <version>2.22.1</version>
+                    <configuration>
+                        <useSystemClassLoader>false</useSystemClassLoader>
+                    </configuration>
                 </plugin>
                 <!-- Maven Failsafe Plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>2.20</version>
+                    <version>2.22.1</version>
                 </plugin>
                 <!-- Maven Deploy Plugin -->
                 <plugin>
@@ -199,7 +205,7 @@
                 <plugin>
                     <groupId>org.apache.jackrabbit</groupId>
                     <artifactId>filevault-package-maven-plugin</artifactId>
-                    <version>1.0.1</version>
+                    <version>1.0.3</version>
                     <configuration>
                         <filterSource>src/main/content/META-INF/vault/filter.xml</filterSource>
                     </configuration>
@@ -220,7 +226,7 @@
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>3.3.0</version>
+                    <version>4.1.0</version>
                     <inherited>true</inherited>
                 </plugin>
                 <!-- Maven Enforcer Plugin -->
@@ -241,7 +247,8 @@
                     <artifactId>build-helper-maven-plugin</artifactId>
                     <version>3.0.0</version>
                 </plugin>
-                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <!--This plugin's configuration is used to store Eclipse
+                    m2e settings only. It has no influence on the Maven build itself. -->
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>
@@ -279,7 +286,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                         <ignore />
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
@@ -313,7 +320,7 @@
 
     <profiles>
         <!-- ====================================================== -->
-        <!-- A D O B E   P U B L I C   P R O F I L E                -->
+        <!-- A D O B E P U B L I C P R O F I L E -->
         <!-- ====================================================== -->
         <profile>
             <id>adobe-public</id>
@@ -369,7 +376,7 @@
                 <plugin>
                     <groupId>org.apache.sling</groupId>
                     <artifactId>maven-sling-plugin</artifactId>
-                </plugin>
+                 </plugin>
             -->
             <activation>
                 <activeByDefault>false</activeByDefault>
@@ -478,7 +485,7 @@
 
 
     <!-- ====================================================================== -->
-    <!-- D E P E N D E N C I E S                                                -->
+    <!-- D E P E N D E N C I E S -->
     <!-- ====================================================================== -->
     <dependencyManagement>
         <dependencies>
@@ -501,6 +508,17 @@
                 <version>6.0.1</version>
                 <scope>provided</scope>
             </dependency>
+            <dependency>
+                <groupId>javax.inject</groupId>
+                <artifactId>javax.inject</artifactId>
+                <version>1</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.annotation</groupId>
+                <artifactId>javax.annotation-api</artifactId>
+                <version>1.3.2</version>
+                <scope>provided</scope>
+            </dependency>
             <!-- Logging Dependencies -->
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -509,10 +527,10 @@
                 <scope>provided</scope>
             </dependency>
             <!-- Adobe AEM Dependencies -->
-<!--            <dependency>
+            <!--<dependency>
                 <groupId>com.adobe.aem</groupId>
                 <artifactId>uber-jar</artifactId>
-                <version>6.3.0</version>
+                <version>6.5.0</version>
                 <classifier>apis</classifier>
                 <scope>provided</scope>
             </dependency>-->
@@ -533,20 +551,26 @@
                 <groupId>com.adobe.cq</groupId>
                 <artifactId>core.wcm.components.all</artifactId>
                 <type>zip</type>
-                <version>2.2.0</version>
+                <version>2.3.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.adobe.cq</groupId>
+                <artifactId>core.wcm.components.examples</artifactId>
+                <type>zip</type>
+                <version>2.3.2</version>
             </dependency>
             <!-- Apache Sling Dependencies -->
             <dependency>
                 <groupId>org.apache.sling</groupId>
                 <artifactId>org.apache.sling.models.api</artifactId>
-                <version>1.0.0</version>
+                <version>1.3.6</version>
                 <scope>provided</scope>
             </dependency>
             <!-- Servlet API -->
             <dependency>
                 <groupId>javax.servlet</groupId>
-                <artifactId>servlet-api</artifactId>
-                <version>2.5</version>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>3.1.0</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -572,21 +596,28 @@
 
             <!-- Testing -->
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.12</version>
-                <scope>test</scope>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>5.4.1</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-simple</artifactId>
-                <version>1.7.21</version>
+                <version>1.7.25</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
-                <version>2.7.22</version>
+                <version>2.25.1</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>2.25.1</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -596,9 +627,9 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.apache.sling</groupId>
-                <artifactId>org.apache.sling.testing.sling-mock</artifactId>
-                <version>2.2.18</version>
+                <groupId>io.wcm</groupId>
+                <artifactId>io.wcm.testing.aem-mock.junit5</artifactId>
+                <version>2.4.4</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
