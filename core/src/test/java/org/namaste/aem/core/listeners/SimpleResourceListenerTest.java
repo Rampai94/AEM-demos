@@ -15,29 +15,26 @@
  */
 package org.namaste.aem.core.listeners;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.apache.sling.api.SlingConstants;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.osgi.service.event.Event;
-
 import uk.org.lidalia.slf4jext.Level;
 import uk.org.lidalia.slf4jtest.LoggingEvent;
 import uk.org.lidalia.slf4jtest.TestLogger;
 import uk.org.lidalia.slf4jtest.TestLoggerFactory;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.Collections;
+import java.util.List;
+import static org.junit.Assert.*;
 
-class SimpleResourceListenerTest {
+public class SimpleResourceListenerTest {
 
     private SimpleResourceListener fixture = new SimpleResourceListener();
 
     private TestLogger logger = TestLoggerFactory.getTestLogger(fixture.getClass());
 
     @Test
-    void handleEvent() {
+    public void handleEvent() {
         Event resourceEvent = new Event("event/topic", Collections.singletonMap(SlingConstants.PROPERTY_PATH, "/content/test"));
 
         fixture.handleEvent(resourceEvent);
@@ -45,12 +42,9 @@ class SimpleResourceListenerTest {
         List<LoggingEvent> events = logger.getLoggingEvents();
         assertEquals(1, events.size());
         LoggingEvent event = events.get(0);
-
-        assertAll(
-                () -> assertEquals(Level.DEBUG, event.getLevel()),
-                () -> assertEquals(2, event.getArguments().size()),
-                () -> assertEquals("event/topic", event.getArguments().get(0)),
-                () -> assertEquals("/content/test", event.getArguments().get(1))
-        );
+        assertEquals(Level.DEBUG, event.getLevel());
+        assertEquals(2, event.getArguments().size());
+        assertEquals("event/topic", event.getArguments().get(0));
+        assertEquals("/content/test", event.getArguments().get(1));
     }
 }

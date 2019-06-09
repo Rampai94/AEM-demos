@@ -15,27 +15,26 @@
  */
 package org.namaste.aem.core.servlets;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-
+import org.apache.sling.testing.mock.sling.junit.SlingContext;
 import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletRequest;
 import org.apache.sling.testing.mock.sling.servlet.MockSlingHttpServletResponse;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.Rule;
+import org.junit.Test;
 
-import io.wcm.testing.mock.aem.junit5.AemContext;
-import io.wcm.testing.mock.aem.junit5.AemContextExtension;
+import javax.servlet.ServletException;
+import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.*;
 
-@ExtendWith(AemContextExtension.class)
-class SimpleServletTest {
+public class SimpleServletTest {
+
+    @Rule
+    public final SlingContext context = new SlingContext();
 
     private SimpleServlet fixture = new SimpleServlet();
 
     @Test
-    void doGet(AemContext context) throws ServletException, IOException {
+    public void doGet() throws ServletException, IOException {
         context.build().resource("/content/test", "jcr:title", "resource title").commit();
         context.currentResource("/content/test");
 

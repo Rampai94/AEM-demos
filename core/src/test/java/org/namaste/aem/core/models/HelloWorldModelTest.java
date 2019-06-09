@@ -15,49 +15,46 @@
  */
 package org.namaste.aem.core.models;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.sling.api.resource.Resource;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-import com.day.cq.wcm.api.Page;
-import io.wcm.testing.mock.aem.junit5.AemContext;
-import io.wcm.testing.mock.aem.junit5.AemContextExtension;
+import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import junitx.util.PrivateAccessor;
+
+import org.apache.sling.settings.SlingSettingsService;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * Simple JUnit test verifying the HelloWorldModel
  */
-@ExtendWith(AemContextExtension.class)
-class HelloWorldModelTest {
+public class HelloWorldModelTest {
 
+    //@Inject
     private HelloWorldModel hello;
+    
+    private String slingId;
+    
+    @Before
+    public void setup() throws Exception {
+        SlingSettingsService settings = mock(SlingSettingsService.class);
+        slingId = UUID.randomUUID().toString();
+        when(settings.getSlingId()).thenReturn(slingId);
 
-    private Page page;
-    private Resource resource;
-
-    @BeforeEach
-    public void setup(AemContext context) throws Exception {
-
-        // prepare a page with a test resource
-        page = context.create().page("/content/mypage");
-        resource = context.create().resource(page, "hello",
-            "sling:resourceType", "sample-aem/components/content/helloworld");
-
-        // create sling model
-        hello = resource.adaptTo(HelloWorldModel.class);
+        hello = new HelloWorldModel();
+        PrivateAccessor.setField(hello, "settings", settings);
+        hello.init();
     }
-
+    
     @Test
-    void testGetMessage() throws Exception {
+    public void testGetMessage() throws Exception {
         // some very basic junit tests
         String msg = hello.getMessage();
         assertNotNull(msg);
-        assertTrue(StringUtils.contains(msg, resource.getResourceType()));
-        assertTrue(StringUtils.contains(msg, page.getPath()));
+        assertTrue(msg.length() > 0);
     }
 
 }
