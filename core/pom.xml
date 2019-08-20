@@ -65,7 +65,7 @@
                             *
                         </Import-Package>
                         <Sling-Model-Packages>
-                            org.namaste.aem.core
+                            org.namaste.aem.core.models
                         </Sling-Model-Packages>
                         <_dsannotations>*</_dsannotations>
                         <_metatypeannotations>*</_metatypeannotations>
@@ -145,6 +145,7 @@
             <groupId>org.apache.sling</groupId>
             <artifactId>org.apache.sling.models.api</artifactId>
         </dependency>
+        <!-- Only needed to run tests in a version of IntelliJ IDEA that bundles older versions -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
