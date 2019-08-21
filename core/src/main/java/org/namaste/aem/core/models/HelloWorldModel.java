@@ -15,10 +15,8 @@
  */
 package org.namaste.aem.core.models;
 
-import static org.apache.sling.api.resource.ResourceResolver.PROPERTY_RESOURCE_TYPE;
-
-import javax.annotation.PostConstruct;
-
+import com.day.cq.wcm.api.Page;
+import com.day.cq.wcm.api.PageManager;
 import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Default;
@@ -28,9 +26,12 @@ import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.SlingObject;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
 import org.apache.sling.settings.SlingSettingsService;
+import org.namaste.aem.core.service.MySimpleService;
 
-import com.day.cq.wcm.api.Page;
-import com.day.cq.wcm.api.PageManager;
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+
+import static org.apache.sling.api.resource.ResourceResolver.PROPERTY_RESOURCE_TYPE;
 
 @Model(adaptables = Resource.class)
 public class HelloWorldModel {
@@ -45,18 +46,23 @@ public class HelloWorldModel {
     private Resource currentResource;
     @SlingObject
     private ResourceResolver resourceResolver;
+    @Inject
+    private MySimpleService ms;
+
 
     private String message;
 
     @PostConstruct
     protected void init() {
+
         PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
         Page currentPage = pageManager.getContainingPage(currentResource);
 
         message = "\tHello World!\n"
             + "\tThis is instance: " + settings.getSlingId() + "\n"
             + "\tResource type is: " + resourceType + "\n"
-            + "\tCurrent page is: " + (currentPage != null ? currentPage.getPath() : "") + "\n";
+            + "\tCurrent page is: " + (currentPage != null ? currentPage.getPath() : "") + "\n"
+            + "\tValue is " + ms.getSimpleValue() + "\n";
     }
 
     public String getMessage() {

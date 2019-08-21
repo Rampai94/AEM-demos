@@ -1,0 +1,74 @@
+<div>
+
+    <div data-sly-use.path="${'filepath.js' @ value='demo-page'}">
+        ${path.hasString}
+    </div>
+
+<p>This is your AEM HTML Template Language component using properties:</p>
+      <h1>${properties.heading}</h1>
+       <p>${properties.description}</p>
+       <p>The following values are the resource types added to the dialog</p>
+       <p><b>Selected Path value:</b> ${properties.path}</p>
+ 
+       <p>
+            <b>Date:</b> 
+                  ${'yyyy-MM-dd HH:mm:ss.SSSXXX' @ format=properties.startDate, timezone='UTC'}
+        </p>
+        <p>
+            <b>Size:</b> ${properties.size}
+        </p>
+        <p>
+            <b>Checkbox:</b> ${properties.show}
+        </p>
+         <p>
+            <b>Nationality:</b> ${properties.country}
+        </p>
+		<p>
+            <b>Selected Json Item:</b> ${properties.jsonItem}
+        </p>
+
+</div>
+
+<div>
+<p>This is your AEM HTML Template Language component using WCMUsePojo</p>
+<div data-sly-use.heroTextObject="org.namaste.aem.core.components.HeroTextComponent" data-sly-test="${heroTextObject}">
+        <p>The following values are the resource types added to the dialog</p>
+       <h1>${heroTextObject.heroTextBean.headingText}</h1>
+       <p><b>Description:</b> ${heroTextObject.heroTextBean.description}</p>
+       <p><b>Selected Path value:</b> ${heroTextObject.heroTextBean.path}</p>  
+       <p><b>Date:</b> ${heroTextObject.heroTextBean.date}</p> 
+       <p><b>Size:</b> ${heroTextObject.heroTextBean.type}</p>  
+       <p><b>CHeckbox:</b> ${heroTextObject.heroTextBean.show}</p>  
+</div>
+
+Click here to configure COOL Multi Field User Menu
+<div
+    data-sly-use.multiItems="org.namaste.aem.core.models.Multifield">
+    <div data-sly-list.head="${multiItems.products.listChildren}">
+        <p>
+            <b>Name:</b> ${head.product}
+        </p>
+        <p>
+            <b>Path:</b> ${head.pathbr}
+        </p>
+        <p>
+            <b>Date:</b> 
+                  ${'yyyy-MM-dd HH:mm:ss.SSSXXX' @ format=head.startDate, timezone='UTC'}
+ 
+        </p>
+        <p>
+            <b>Size:</b> ${head.size}
+        </p>
+        <p>
+            <b>CHeckbox:</b> ${head.show}
+        </p>
+    </div>
+</div>
+
+<div data-sly-use.multi2Items="${'org.namaste.aem.core.models.MultifieldToJson' @name='products'}">
+    Full Json : ${multi2Items.getComponentJson}
+<br/>
+	Multi Json : ${multi2Items.getJsonMulti}
+    <br/>
+    Sample Json from file : ${multi2Items.jsonString}
+</div>
