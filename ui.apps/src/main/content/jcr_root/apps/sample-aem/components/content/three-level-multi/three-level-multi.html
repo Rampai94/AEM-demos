@@ -1,0 +1,31 @@
+<div>
+    <b>Countries Details
+    <br><br>
+    <div data-sly-use.countryModel="org.namaste.aem.core.models.Countries" data-sly-unwrap>
+        <div data-sly-test="${!countryModel || wcmmode.edit}">
+            Add country, state and city details using component dialog
+        </div>
+
+        <div data-sly-test="${countryModel.countriesList}">
+            <div data-sly-list.countries="${countryModel.countriesList}">
+                <div>
+                    <div>Country Name: ${countries.country}</div>
+                    <br>
+                    <div data-sly-list.states="${countries.stateList}" style="margin-left:40px">
+                        <div>State No.: ${statesList.count}</div>
+                        <div>State Name: ${states.state}</div>
+                        <br>
+                            <div data-sly-list.cities="${states.cityList}" style="margin-left:40px">
+                            <div>City Name: ${cities.city}</div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div data-sly-use.multi2Items="${'org.namaste.aem.core.models.MultifieldToJson' @name='countries'}">
+	Multi Json : ${multi2Items.getJsonMulti}
+</div>

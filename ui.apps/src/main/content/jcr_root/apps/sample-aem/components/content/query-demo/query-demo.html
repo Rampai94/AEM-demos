@@ -1,0 +1,107 @@
+<script>
+ 
+ 
+ $(document).ready(function() {
+    var table = $('#myTable').DataTable();
+ 
+ 
+    $('#submit').click( function() {
+ 
+ 
+ 
+ 
+         //Use JQuery AJAX request to post data to a Sling Servlet
+    $.ajax({
+         type: 'GET',    
+         url:'/bin/myCustData',
+         data:'type='+ 'data',
+         success: function(msg){
+ 
+           var xml = msg; 
+ 
+            var oTable = $('#myTable').dataTable();
+            oTable.fnClearTable(true);
+ 
+ 
+ 
+             //Loop through this function for each Employee element
+                //in the returned XML
+                 $(xml).find('Employee').each(function(){
+                          
+                    var $field = $(this);
+                    var Name = $field.find('Name').text();
+                    var Job = $field.find('Position').text(); 
+                    var Address = $field.find('Address').text();
+                    var Age = $field.find('Age').text();
+                    var Date = $field.find('Date').text();   
+                    var Salary = $field.find('Salary').text();     
+  
+                    //Set the new data 
+                    oTable.fnAddData( [
+                        Name,
+                        Job,
+                        Address,
+                        Age,
+                        Date,
+                        Salary,,]
+                    );
+             
+                    });
+ 
+ 
+ 
+            }
+ 
+             
+            });
+ 
+ 
+ 
+ 
+ 
+  });  //end of click
+ 
+}); // end ready
+</script>
+ 
+ 
+ 
+ <div>
+ 
+ 
+<table id="myTable" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>${properties.text}</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Tiger Nixon</td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                <td>61</td>
+                <td>2011/04/25</td>
+                <td>$320,800</td>
+            </tr>
+ 
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>${properties.text}</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+            <input type="button" value="Submit"  name="submit" id="submit" value="Get Employees">
+        </tfoot>
+    </table>
+ 
+    </div>
