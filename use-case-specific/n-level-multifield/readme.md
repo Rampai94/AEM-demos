@@ -1,3 +1,11 @@
+# Downloads:
+
+Refer to the downloads folder for files and packages pertaining to the use case.
+
+# Internal:
+
+The internal folder is only for Github demo purposes.
+
 # Snapshots:
 
 ### Dialog Structure CRX:
