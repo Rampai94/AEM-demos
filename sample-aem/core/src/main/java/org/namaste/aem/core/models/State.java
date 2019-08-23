@@ -57,7 +57,7 @@ public class State {
     @PostConstruct
     protected void init() {
         logger.debug("In init method of Country model.");
-        if(!cities.isEmpty()) {
+        if (cities != null && !cities.isEmpty()) {
             for (Resource resource : cities) {
                 City city = resource.adaptTo(City.class);
                 cityList.add(city);

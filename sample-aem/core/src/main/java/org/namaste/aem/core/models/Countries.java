@@ -41,10 +41,11 @@ public class Countries {
     public void setCountriesList(List<Country> countriesList) {
         this.countriesList = countriesList;
     }
+
     @PostConstruct
     protected void init() {
         logger.debug("In init of CountriesModel");
-        if (!countries.isEmpty()) {
+        if (countries != null && !countries.isEmpty()) {
             for (Resource resource : countries) {
                 Country student = resource.adaptTo(Country.class);
                 countriesList.add(student);
