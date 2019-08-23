@@ -26,5 +26,4 @@ public class City {
     @Optional
     private String city;
 
-
 }

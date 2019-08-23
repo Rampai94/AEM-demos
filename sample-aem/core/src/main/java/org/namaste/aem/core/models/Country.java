@@ -16,6 +16,7 @@ import java.util.List;
  *
  * @author RP53993 (ramamity94@gmail.com) created on 8/20/2019 inside the package - org.namaste.aem.core.models
  **/
+
 /**
  * The type Country.
  */
@@ -56,7 +57,7 @@ public class Country {
     @PostConstruct
     protected void init() {
         logger.debug("In init method of Country model.");
-        if(!states.isEmpty()) {
+        if (states != null && !states.isEmpty()) {
             for (Resource resource : states) {
                 State state = resource.adaptTo(State.class);
                 stateList.add(state);
