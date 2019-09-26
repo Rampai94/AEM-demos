@@ -1,5 +1,5 @@
 # AEM-demos
-Compilation of AEM helpx articles implementations and other use cases.
+A sample AEM Project to demonstrate various use cases and their implementation by Pawan Mahto & Ram Pai.
 
 This repo is divided into two sections. 
 
